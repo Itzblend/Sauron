@@ -1,0 +1,73 @@
+[
+    {
+        "id": 1,
+        "name": "Designing data-intensive applications",
+        "description": "Designing data-intensive applications",
+        "author": "Martin Kleppmann",
+        "price(usd)": 40.20,
+        "price(eur)": 35.00,
+        "price(gbp)": 30.00,
+        "pages": 400,
+        "publisher": "O'Reilly",
+        "year": 2017,
+        "isbn": "9781491903063",
+        "url": "https://www.oreilly.com/library/view/designing-data-intensive-applications/9781491903063/"
+    },
+    {
+        "id": 2,
+        "name": "Streaming Systems",
+        "description": "The What, Where, When, and How of Large-Scale Data Processing",
+        "author": "Martin Kleppmann",
+        "price(usd)": 37.60,
+        "price(eur)": 32.50,
+        "price(gbp)": 27.50,
+        "pages": 270,
+        "publisher": "O'Reilly",
+        "year": 2015,
+        "isbn": "9781491925672",
+        "url": "https://www.oreilly.com/library/view/streaming-systems/9781491925672/"
+
+    },
+    {
+        "id": 3,
+        "name": "Data Mesh",
+        "description": "Principles and Practices for Building a Data Platform",
+        "author": "Zhamak Dehghani, Martin Kleppmann",
+        "price(usd)": 64.14,
+        "price(eur)": 55.00,
+        "price(gbp)": 47.00,
+        "pages": 320,
+        "publisher": "O'Reilly",
+        "year": 2020,
+        "isbn": "9781492075380",
+        "url": "https://www.oreilly.com/library/view/data-mesh/9781492075380/"
+    },
+    {
+        "id": 4,
+        "name": "Database Internals",
+        "description": "A deep dive into how distributed data systems work",
+        "author": "Alex Petrov",
+        "price(usd)": 39.99,
+        "price(eur)": 34.99,
+        "price(gbp)": 29.99,
+        "pages": 400,
+        "publisher": "O'Reilly",
+        "year": 2019,
+        "isbn": "9781492033431",
+        "url": "https://www.oreilly.com/library/view/database-internals/9781492033431/"
+    },
+    {
+        "id": 5,
+        "name": "Software Architecture Patterns",
+        "description": "With Examples in Java",
+        "author": "Mark Richards",
+        "price(usd)": 39.99,
+        "price(eur)": 34.99,
+        "price(gbp)": 29.99,
+        "pages": 196,
+        "publisher": "O'Reilly",
+        "year": 2019,
+        "isbn": "9781492052197",
+        "url": "https://www.oreilly.com/library/view/software-architecture-patterns/9781492052197/"
+    }
+]
