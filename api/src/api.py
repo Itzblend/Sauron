@@ -62,7 +62,19 @@ def process_purchase(book):
     with open("data/purchases.json", "a") as f:
         f.write(json.dumps(purchase_log))
         f.write("\n")
-    return True
+
+    purchase_status = validate_purchase(purchase_log)
+    return purchase_status
+
+def validate_purchase(purchase_log):
+    with open('data/purchases.json', 'r') as f:
+        last_purchase = json.loads(f.readlines()[-1])
+    if purchase_log == last_purchase:
+        return True
+    else:
+        return False
+
+
 
 
 # Run the app
