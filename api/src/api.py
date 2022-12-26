@@ -4,6 +4,7 @@ import uvicorn
 import json
 import logging
 import logging.config
+from datetime import datetime
 
 # Load the logging configuration
 logging.config.fileConfig("src/log.ini")
@@ -35,6 +36,34 @@ def get_book(book_id: int):
     else:
         logger.error(f'Book with id {book_id} not found')
         return {"Error": f"Book with id {book_id} not found"}
+
+@app.get("/purchase/{book_id}")
+def purchase_book(book_id: int):
+    with open("data/books.json", "r") as f:
+        books = json.load(f)
+    book = [book for book in books if book["id"] == book_id]
+    if book:
+        purchase_status = process_purchase(book[0])
+
+    if purchase_status:
+        logger.info(f'Purchasing book with id {book_id}')
+        return {"Success": f"Book with id {book_id} purchased"}
+    else:
+        logger.error("Purchase failed")
+        return {"Error": "Purchase failed"}
+
+def process_purchase(book):
+    purchase_log = {
+        "id": book["id"],
+        "name": book["name"],
+        "price(usd)": book["price(usd)"],
+        "timestamp": datetime.now().isoformat()
+    }
+    with open("data/purchases.json", "a") as f:
+        f.write(json.dumps(purchase_log))
+        f.write("\n")
+    return True
+
 
 # Run the app
 if __name__ == "__main__":
