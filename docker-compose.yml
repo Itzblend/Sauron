@@ -5,10 +5,25 @@ services:
     build:
       context: ./api
       dockerfile: Dockerfile
+    container_name: api
+    hostname: api
     ports:
       - "8888:8888"
     volumes:
       - ./api:/api
+    networks:
+      - Sauron
+
+  bot:
+    build:
+      context: ./bot
+      dockerfile: Dockerfile
+    container_name: bot
+    hostname: bot
+    volumes:
+      - ./bot:/bot
+    networks:
+      - Sauron
 
 networks:
   Sauron:
