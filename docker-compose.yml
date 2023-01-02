@@ -1,5 +1,11 @@
 version: "3.7"
 
+networks:
+  Sauron:
+    ipam:
+      config:
+        - subnet: 172.18.0.0/16
+
 services:
   api:
     build:
@@ -12,19 +18,47 @@ services:
     volumes:
       - ./api:/api
     networks:
-      - Sauron
+      Sauron:
+        ipv4_address: 172.18.0.12
 
   bot:
     build:
       context: ./bot
       dockerfile: Dockerfile
+    depends_on:
+      - api
     container_name: bot
     hostname: bot
     volumes:
       - ./bot:/bot
     networks:
-      - Sauron
+      Sauron:
+        ipv4_address: 172.18.0.13
 
-networks:
-  Sauron:
-    driver: bridge
+  # beam:
+  #   build:
+  #     context: ./beam
+  #     dockerfile: Dockerfile
+  #   container_name: beam
+  #   hostname: beam
+  #   volumes:
+  #     - ./beam:/beam
+  #     - ./../api/data:/beam/data
+  #   networks:
+  #     - Sauron
+  #   command: ["sleep", "infinity"]
+
+  kafka1:
+    container_name: kafka1
+    build: 
+      context: ./kafka
+      dockerfile: Dockerfile
+    ports:
+        - "9092:9092"
+    networks:
+      Sauron:
+        ipv4_address: 172.18.0.11
+    volumes:
+    - ./kafka/config/kafka1/server.properties:/usr/kafka/config/kraft/server.properties
+    - ./kafka/data/kafka1/:/data/kafka/
+    command: bash -c "sleep 10 && /usr/kafka/config.sh"

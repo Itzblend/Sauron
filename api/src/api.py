@@ -6,9 +6,26 @@ import logging
 import logging.config
 from datetime import datetime
 
+from logging.handlers import TimedRotatingFileHandler
+import time
+
+
+def create_timed_rotating_log(path):
+    """"""
+    logging.config.fileConfig("src/log.ini")
+    logger = logging.getLogger("api")
+    logger.setLevel(logging.INFO)
+    
+    handler = TimedRotatingFileHandler(path,
+                                       when="s",
+                                       interval=30,
+                                       backupCount=5)
+    logger.addHandler(handler)
+    return logger
+
+
 # Load the logging configuration
-logging.config.fileConfig("src/log.ini")
-logger = logging.getLogger("api")
+logger = create_timed_rotating_log("src/api.log")
 
 # Create the app
 app = FastAPI()
