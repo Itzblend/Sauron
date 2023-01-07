@@ -8,10 +8,14 @@ from datetime import datetime
 
 from logging.handlers import TimedRotatingFileHandler
 import time
+import os
+
+if not os.path.exists("log"):
+    os.mkdir("log")
 
 from kafka import KafkaProducer
 
-
+HETZNER_KAFKA_IP = os.environ.get("HETZNER_UTILS_IP", "")
 def create_timed_rotating_log(path):
     """"""
     logging.config.fileConfig("src/log.ini")
@@ -19,21 +23,21 @@ def create_timed_rotating_log(path):
     logger.setLevel(logging.INFO)
     
     handler = TimedRotatingFileHandler(path,
-                                       when="s",
+                                       when="m",
                                        interval=30,
                                        backupCount=5)
     logger.addHandler(handler)
     return logger
 
 def send_to_kafka_topic(topic_name, data):
-    producer = KafkaProducer(bootstrap_servers=['kafka1:9092'])
+    producer = KafkaProducer(bootstrap_servers=[f'{HETZNER_KAFKA_IP}:9092'])
     producer.send(topic_name, data)
     producer.flush()
     print('Message published successfully.')
     return True
 
 # Load the logging configuration
-logger = create_timed_rotating_log("src/api.log")
+logger = create_timed_rotating_log("log/api.log")
 
 # Create the app
 app = FastAPI()
