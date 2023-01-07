@@ -9,7 +9,3 @@ export PATH="$KAFKA_BIN:$PATH"
 # Start Kafka
 kafka-storage.sh format --config $KAFKA_HOME/config/kraft/server.properties --cluster-id $KAFKA_UUID --ignore-formatted
 kafka-server-start.sh $CONFIG_FILE
-
-# Creating topic
-/tmp/kafka/kafka_2.12-3.2.0/bin# ./kafka-topics.sh --bootstrap-server=localhost:9092 \
---create --topic book_purchases --partitions 1 --replication-factor 1

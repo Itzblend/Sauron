@@ -9,6 +9,8 @@ from datetime import datetime
 from logging.handlers import TimedRotatingFileHandler
 import time
 
+from kafka import KafkaProducer
+
 
 def create_timed_rotating_log(path):
     """"""
@@ -23,6 +25,12 @@ def create_timed_rotating_log(path):
     logger.addHandler(handler)
     return logger
 
+def send_to_kafka_topic(topic_name, data):
+    producer = KafkaProducer(bootstrap_servers=['kafka1:9092'])
+    producer.send(topic_name, data)
+    producer.flush()
+    print('Message published successfully.')
+    return True
 
 # Load the logging configuration
 logger = create_timed_rotating_log("src/api.log")
@@ -76,6 +84,7 @@ def process_purchase(book):
         "price(usd)": book["price(usd)"],
         "timestamp": datetime.now().isoformat()
     }
+    send_to_kafka_topic('purchases', json.dumps(purchase_log).encode('utf-8'))
     with open("data/purchases.json", "a") as f:
         f.write(json.dumps(purchase_log))
         f.write("\n")

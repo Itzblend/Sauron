@@ -27,7 +27,6 @@ def get_books():
 def purchase_book(book_id):
     logger.info(f'Purchasing book with id {book_id} from {HOST}')
     r = requests.get(f'http://{HOST}/purchase/{book_id}')
-    return r.json()
 
 if __name__ == '__main__':
     while True:
