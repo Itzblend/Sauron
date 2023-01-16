@@ -9,6 +9,7 @@ from datetime import datetime
 from logging.handlers import TimedRotatingFileHandler
 import time
 import os
+import random
 
 if not os.path.exists("log"):
     os.mkdir("log")
@@ -88,6 +89,8 @@ def process_purchase(book):
         "price(usd)": book["price(usd)"],
         "timestamp": datetime.now().isoformat()
     }
+    # Introducing random latency between event timestamp and processing timestamp
+    time.sleep(random.uniform(0, 5))
     send_to_kafka_topic('purchases', json.dumps(purchase_log).encode('utf-8'))
     with open("data/purchases.json", "a") as f:
         f.write(json.dumps(purchase_log))

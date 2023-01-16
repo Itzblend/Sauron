@@ -4,3 +4,4 @@ __pycache__
 venv/
 purchases.json
 .env
+.idea
